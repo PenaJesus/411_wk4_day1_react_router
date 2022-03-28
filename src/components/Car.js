@@ -1,12 +1,28 @@
-import React from 'react'
-import cars from '../cars.json'
+import React from "react";
+import { Container, Paper, Chip } from "@material-ui/core";
+import cars from "../cars.json";
 // import material ui components here //
 // Container, Paper, Chip //
+//  import { useParams } from "react-router-dom";
+
 
 const Car = (props) => {
-    return (
-        <h1>A specific car</h1>
-    )
-}
+  //read the log
+  //filter array of cars based on id in object
 
-export default Car
+  const id = props.match.params.id;
+  const car = cars.find((c) => c.id === +id);
+
+  return (
+    <Container maxWidth="sm" className="car-container">
+      <Paper className="car-paper">
+        <h2>{car.Name}</h2>
+        {Object.keys(car).map((key, idx) => {
+          return <Chip key={idx} label={`${key}: ${car[key]}`}></Chip>;
+        })}
+      </Paper>
+    </Container>
+  );
+};
+
+export default Car;
